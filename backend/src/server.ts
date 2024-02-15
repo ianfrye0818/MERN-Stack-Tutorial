@@ -7,6 +7,8 @@ import cors from 'cors';
 import express from 'express';
 import mongoose, { ConnectOptions } from 'mongoose';
 //custom imports
+import userRoutes from './routes/userRoutes';
+import workoutRoutes from './routes/workoutRoutes';
 
 //global variables
 const app = express();
@@ -17,6 +19,10 @@ const MONGO_URI = process.env.MONGO_URI as string;
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
+
+//routes
+app.use('/users', userRoutes);
+app.use('/workouts', workoutRoutes);
 
 //connect to db and start listening for requests
 mongoose
