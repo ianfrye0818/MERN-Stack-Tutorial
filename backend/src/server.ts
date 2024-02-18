@@ -9,6 +9,7 @@ import mongoose, { ConnectOptions } from 'mongoose';
 //custom imports
 import userRoutes from './routes/userRoutes';
 import workoutRoutes from './routes/workoutRoutes';
+import authRoutes from './routes/authRoutes';
 
 //global variables
 const app = express();
@@ -21,8 +22,9 @@ app.use(cookieParser());
 app.use(cors());
 
 //routes
-app.use('/users', userRoutes);
-app.use('/workouts', workoutRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/workouts', workoutRoutes);
+app.use('/api/auth', authRoutes);
 
 //connect to db and start listening for requests
 mongoose

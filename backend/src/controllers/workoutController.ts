@@ -9,45 +9,86 @@ import Workout from '../models/workoutModel';
 // get all workouts
 async function getAllWorkouts(req: Request, res: Response) {
   try {
-    res.json({ message: 'get all workouts' });
+    const workouts = await Workout.find();
+    if (!workouts) {
+      res.status(404).json({ message: 'No workouts found' });
+    }
+    res.status(201).json(workouts);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    if (error instanceof Error) {
+      res.status(500).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: 'An error occured' });
+    }
   }
 }
 
 //get single workout
 async function getWorkout(req: Request, res: Response) {
   try {
-    res.json({ message: 'get single workout' });
+    const workoutId = req.params.id;
+    const workout = await Workout.findById(workoutId);
+    if (!workout) {
+      res.status(404).json({ message: 'No workout found' });
+    }
+    res.status(201).json(workout);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    if (error instanceof Error) {
+      res.status(500).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: 'An error occured' });
+    }
   }
 }
 
 //create new workout
 async function createWorkout(req: Request, res: Response) {
   try {
-    res.json({ message: 'create new workout' });
+    const workout = new Workout(req.body);
+    await workout.save();
+    res.status(201).json(workout);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    if (error instanceof Error) {
+      res.status(500).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: 'An error occured' });
+    }
   }
 }
 
 //delete workout
 async function deleteWorkout(req: Request, res: Response) {
   try {
-    res.json({ message: 'delete workout' });
+    const workoutId = req.params.id;
+    const workout = await Workout.findByIdAndDelete(workoutId);
+    if (!workout) {
+      res.status(404).json({ message: 'No workout found' });
+    }
+    res.status(201).json(workout);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    if (error instanceof Error) {
+      res.status(500).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: 'An error occured' });
+    }
   }
 }
 
 //patch a workout
 async function patchWorkout(req: Request, res: Response) {
   try {
-    res.json({ message: 'patch workout' });
+    const workoutId = req.params.id;
+    const workout = await Workout.findByIdAndUpdate(workoutId, req.body);
+    if (!workout) {
+      res.status(404).json({ message: 'No workout found' });
+    }
+    res.status(201).json(workout);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    if (error instanceof Error) {
+      res.status(500).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: 'An error occured' });
+    }
   }
 }
 
