@@ -1,17 +1,18 @@
 //library imports
 import { Request, Response, NextFunction } from 'express';
-
 //custom imports
 
 //type imports
 import { CustomRequest } from './verifyJWT';
 
-//middleware to check if user is an admin
-export default async function checkIsAdmin(req: Request, res: Response, next: NextFunction) {
+//middleware to verify that the user is the one who is accessing their own data
+export default async function isUser(req: Request, res: Response, next: NextFunction) {
   try {
-    //check if user is an admin
-    if (!(req as CustomRequest).user.isAdmin) {
-      return res.status(403).json({ message: 'You are not authorized to perform this action' });
+    //check if user is the one accessing their own data
+    if (req.params.id !== (req as CustomRequest).user.id) {
+      return res
+        .status(403)
+        .json({ message: 'Unauthorized. User is not authorized to access this resource' });
     }
     next();
   } catch (error) {

@@ -1,13 +1,30 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Backend NodeJS Sever for Workout App ",
   "scripts": {
+    "run": "ts-node src/server.ts",
     "start": "nodemon src/server.ts"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "NodeJS",
+    "Express",
+    "Mongo",
+    "JWT",
+    "TypeScript",
+    "Backend",
+    "Server",
+    "Workout",
+    "App",
+    "API",
+    "REST"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ianfrye0818/MERN-Stack-Tutorial/tree/main/backend"
+  },
+  "author": "Ian Frye",
+  "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",

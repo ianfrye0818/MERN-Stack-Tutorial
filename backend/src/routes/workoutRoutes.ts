@@ -8,6 +8,7 @@ import {
   createWorkout,
   deleteWorkout,
   patchWorkout,
+  getAllUserWorkouts,
 } from '../controllers/workoutController';
 
 //global variables
@@ -15,6 +16,7 @@ const router = express.Router();
 
 //routes
 router.get('/', getAllWorkouts);
+router.get('/user/:id', getAllUserWorkouts);
 router.get('/:id', getWorkout);
 router.post('/', createWorkout);
 router.patch('/:id', patchWorkout);

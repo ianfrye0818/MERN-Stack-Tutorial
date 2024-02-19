@@ -2,6 +2,7 @@
 import { Request, Response } from 'express';
 //custom imports
 import User from '../models/userModel';
+//type imports
 
 //get all users
 async function getAllUsers(req: Request, res: Response) {

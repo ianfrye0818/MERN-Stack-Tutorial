@@ -1,11 +1,15 @@
+//library imports
 import { Request, Response } from 'express';
-import User from '../models/userModel';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+
+//custom imports
+import User from '../models/userModel';
 import TokenBlackList from '../models/tokenBlackListModel';
 
-// register user
-//create a user
+//type imports
+
+//register / create a user
 async function registerUser(req: Request, res: Response) {
   try {
     //check if user already exists in the db

@@ -4,6 +4,7 @@ import { JwtPayload } from 'jsonwebtoken';
 //custom imports
 import TokenBlackList from '../models/tokenBlackListModel';
 import { decodeToken } from '../utils/decodeToken';
+//type imports
 
 //middleware to invalidate expired tokens and add them to the blacklist database collection
 

@@ -1,6 +1,9 @@
+//library imports
 import { Request, Response, NextFunction } from 'express';
-import { CustomRequest } from './verifyJWT';
+//custom imports
 import User from '../models/userModel';
+//type imports
+import { CustomRequest } from './verifyJWT';
 
 export default async function checkManagementRole(req: Request, res: Response, next: NextFunction) {
   try {

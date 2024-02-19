@@ -1,7 +1,7 @@
 //library imports
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './pages/home/Home';
-import NotFoundPage from './pages/not-found/NotFoundPage';
+// import NotFoundPage from './pages/not-found/NotFoundPage';
 
 //component imports
 
@@ -15,7 +15,6 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <Home />,
-    errorElement: <NotFoundPage />,
   },
 ]);
 

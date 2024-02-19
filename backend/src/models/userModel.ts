@@ -1,5 +1,19 @@
+//library imports
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
+//custom imports
+
+export interface UserInterface {
+  _id?: string;
+  name: string;
+  email: string;
+  password: string;
+  workouts?: string[];
+  isAdmin: boolean;
+  role: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
 
 const userSchema = new mongoose.Schema(
   {
