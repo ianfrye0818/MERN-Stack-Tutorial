@@ -1,87 +1,87 @@
 import { useState } from 'react';
 import axios from 'axios';
-
+import { startOfDay } from 'date-fns';
+import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { Button, TextField } from '@mui/material';
-import { DatePicker } from '@mui/x-date-pickers';
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { ShadCnUIDatepicker } from './ShadCnUIDatePicker';
 
-export interface WorkoutInterface {
-  title: string;
+type WorkoutInterface = {
+  title?: string;
   description?: string;
   reps?: number;
   sets?: number;
   weight?: number;
   rest?: number;
-  date: Date;
-  user?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
+  date?: Date;
+};
 
 export default function Home() {
-  const [date, setDate] = useState(Date.now());
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors },
-  // } = useForm();
+  const [date, setDate] = useState<Date>(startOfDay(new Date()));
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  // function onSubmit(data: WorkoutInterface) {
-  //   console.log(data);
-  // }
+  const mutation = useMutation({
+    mutationFn: (data: WorkoutInterface) => axios.post('http://localhost:3000/api/workouts', data),
+  });
 
+  function onSubmit(data: WorkoutInterface) {
+    mutation.mutate({ ...data, date });
+  }
   return (
-    <form className='flex flex-col gap-3 max-w-[800px] mx-auto mt-7'>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className='flex flex-col gap-3 max-w-[800px] mx-auto mt-7'
+    >
       <TextField
         variant='outlined'
         id='title'
         label='Title'
-        // {...register('title', { required: true })}
+        {...register('title', { required: true })}
       />
-      {/* {errors.title && <p className='text-sm text-red-500'>This field is required</p>} */}
+      {errors.title && <p className='text-sm text-red-500'>This field is required</p>}
       <TextField
         variant='outlined'
         id='description'
         label='Description'
-        // {...register('description')}
+        {...register('description')}
       />
       <TextField
         variant='outlined'
         id='reps'
         label='Reps'
         type='number'
-        // {...register('reps')}
+        {...register('reps')}
       />
       <TextField
         variant='outlined'
         id='sets'
         label='Sets'
         type='number'
-        // {...register('sets')}
+        {...register('sets')}
       />
       <TextField
         variant='outlined'
         id='weight'
         label='Weight'
         type='number'
-        // {...register('weight')}
+        {...register('weight')}
       />
       <TextField
         variant='outlined'
         id='rest'
         label='Rest'
         type='number'
-        // {...register('rest')}
+        {...register('rest')}
       />
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DatePicker
-          label='Date'
-          value={date}
-          onChange={(newValue) => setDate(newValue!)}
-        />
-      </LocalizationProvider>
+
+      <ShadCnUIDatepicker
+        date={date}
+        setDate={setDate}
+      />
       <Button
         type='submit'
         variant='contained'
