@@ -3,6 +3,7 @@ import { Input } from '../../components/ui/input';
 import { Button } from '../../components/ui/button';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export type FormDataType = {
   email: string;
@@ -63,7 +64,16 @@ export default function Signup() {
           />
           {errors.confirmPassword && <span className='text-red-500'>This field is required</span>}
           {errorMessage && <span className='text-red-500'>{errorMessage}</span>}
-          <Button className='bg-red-600 hover:bg-red-700 rounded-md p-3 text-white'>Sign In</Button>
+          <Button className='bg-red-600 hover:bg-red-700 rounded-md p-3 text-white'>Sign Up</Button>
+          <p className='self-start'>
+            Already have an account?{' '}
+            <Link
+              className='text-blue-700 underline hover:text-blue-800'
+              to='/signin'
+            >
+              Sign In
+            </Link>
+          </p>
         </form>
       </main>
     </Layout>
