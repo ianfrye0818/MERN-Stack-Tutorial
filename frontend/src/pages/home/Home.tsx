@@ -9,7 +9,7 @@ import { Textarea } from '../../components/ui/textarea';
 import { ShadCnUIDatepicker } from '../../components/ui/ShadCnUIDatePicker';
 import Layout from '../../components/Layout';
 
-type WorkoutInterface = {
+export interface WorkoutInterface {
   title?: string;
   description?: string;
   reps?: number;
@@ -17,7 +17,11 @@ type WorkoutInterface = {
   weight?: number;
   rest?: number;
   date?: Date;
-};
+}
+
+export interface WorkoutDB extends WorkoutInterface {
+  _id: string;
+}
 
 export default function Home() {
   const [date, setDate] = useState<Date>(startOfDay(new Date()));
@@ -93,10 +97,13 @@ export default function Home() {
               {...register('rest', { required: true })}
             />
           </div>
-          <ShadCnUIDatepicker
-            date={date}
-            setDate={setDate}
-          />
+          <div className='flex gap-2 items-center'>
+            <label>Date:</label>
+            <ShadCnUIDatepicker
+              date={date}
+              setDate={setDate}
+            />
+          </div>
           <Button
             type='submit'
             className='w-1/2 self-center'
