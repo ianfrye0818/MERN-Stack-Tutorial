@@ -4,15 +4,10 @@ import { Request, Response, NextFunction } from 'express';
 import TokenBlackList from '../models/tokenBlackListModel';
 import { decodeToken } from '../utils/decodeToken';
 //type imports
+import { CustomRequest } from '../types';
 
 //middleware to invalidate expired tokens and add them to the blacklist database collection
 //interface to extend the Request interface to add id and isAdmin properties to the user object
-export interface CustomRequest extends Request {
-  user: {
-    id: string;
-    isAdmin: boolean;
-  };
-}
 
 //middleware to verify the token
 export async function verifyToken(req: Request, res: Response, next: NextFunction) {

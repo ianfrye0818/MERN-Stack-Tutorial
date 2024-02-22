@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 //custom imports
 
-export interface UserInterface {
+export type UserInterface = {
   _id?: string;
   name: string;
   email: string;
@@ -13,7 +13,7 @@ export interface UserInterface {
   role: string;
   createdAt?: Date;
   updatedAt?: Date;
-}
+};
 
 const userSchema = new mongoose.Schema(
   {

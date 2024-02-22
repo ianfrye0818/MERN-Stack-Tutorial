@@ -1,18 +1,20 @@
+//library imports
 import { format } from 'date-fns';
+import { Dispatch, SetStateAction } from 'react';
 
+//component imports
 import { cn } from '../../lib/utils';
 import { Button } from './button';
 import { Calendar } from './calendar';
 import { Popover, PopoverContent, PopoverTrigger } from './popover';
-import { Dispatch, SetStateAction } from 'react';
 import { FaCalendarAlt } from 'react-icons/fa';
 
-interface ShadCnUIDatepickerProps {
+type DatePickerProps = {
   date: Date;
   setDate: Dispatch<SetStateAction<Date>>;
-}
+};
 
-export function ShadCnUIDatepicker({ date, setDate }: ShadCnUIDatepickerProps) {
+export default function DatePicker({ date, setDate }: DatePickerProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>

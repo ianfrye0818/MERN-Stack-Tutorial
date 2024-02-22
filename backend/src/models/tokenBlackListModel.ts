@@ -1,10 +1,10 @@
 //library imports
 import mongoose from 'mongoose';
 
-export interface TokenBlackListInterface {
+export type TokenBlackListInterface = {
   token: string;
   revoked_at: Date;
-}
+};
 
 //token blacklist schema
 const tokenBlackListSchema = new mongoose.Schema(

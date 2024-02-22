@@ -1,7 +1,7 @@
 //library imports
 import mongoose from 'mongoose';
 //custom imports
-export interface WorkoutInterface {
+export type WorkoutInterface = {
   title: string;
   description?: string;
   reps?: number;
@@ -12,7 +12,7 @@ export interface WorkoutInterface {
   user?: string;
   createdAt?: Date;
   updatedAt?: Date;
-}
+};
 
 const workoutSchema = new mongoose.Schema(
   {

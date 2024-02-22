@@ -3,28 +3,21 @@ import { formatDate } from '../../utils/formatDate';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card';
 import { Button } from './button';
 import axios from 'axios';
+import { WorkoutDB } from '../../types';
 
 type WorkoutCardProps = {
-  workout: {
-    _id: string;
-    title: string;
-    description?: string;
-    reps?: number;
-    sets?: number;
-    weight?: number;
-    rest?: number;
-    date: Date;
-  };
+  workout: WorkoutDB;
 };
 
 export default function WorkoutCard({ workout }: WorkoutCardProps) {
   const queryClient = useQueryClient();
   const mutation = useMutation({
-    mutationFn: (id: string) => axios.delete(`http://localhost:3000/api/workouts/${id}`),
+    mutationFn: async (id: string) =>
+      await axios.delete(`http://localhost:3000/api/workouts/${id}`),
   });
 
   async function handleDelete(id: string) {
-    await axios.delete(`http://localhost:3000/api/workouts/${id}`);
+    await mutation.mutateAsync(id);
     queryClient.invalidateQueries({ queryKey: ['workouts'] });
   }
 

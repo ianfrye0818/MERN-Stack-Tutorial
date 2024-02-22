@@ -1,28 +1,20 @@
+//library imports
 import { useState } from 'react';
 import axios from 'axios';
-import { startOfDay } from 'date-fns';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { Button } from '../../../components/ui/button';
-import { Input } from '../../../components/ui/input';
-import { Textarea } from '../../../components/ui/textarea';
-import { ShadCnUIDatepicker } from '../../../components/ui/DatePicker';
+import { Link, useNavigate } from 'react-router-dom';
+import { startOfDay } from 'date-fns';
+
+//component imports
 import Layout from '../../../components/Layout';
-import { Link } from 'react-router-dom';
+import DatePicker from '../../../components/ui/DatePicker';
+import { Textarea } from '../../../components/ui/textarea';
+import { Input } from '../../../components/ui/input';
+import { Button } from '../../../components/ui/button';
 
-export interface WorkoutInterface {
-  title: string;
-  description?: string;
-  reps?: number;
-  sets?: number;
-  weight?: number;
-  rest?: number;
-  date: Date;
-}
-
-export interface WorkoutDB extends WorkoutInterface {
-  _id: string;
-}
+//type imports
+import { WorkoutInterface } from '../../../types';
 
 export default function Home() {
   const [date, setDate] = useState<Date>(startOfDay(new Date()));
@@ -32,16 +24,28 @@ export default function Home() {
     reset,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: (data: WorkoutInterface) =>
-      axios.post('http://localhost:3000/api/workouts', data).then((res) => console.log(res.data)),
+    mutationFn: async (data: WorkoutInterface) =>
+      await axios.post('http://localhost:3000/api/workouts', data),
   });
 
-  function onSubmit(data: WorkoutInterface) {
-    mutation.mutate({ ...data, date });
+  async function onSubmit(data: WorkoutInterface) {
+    // Add the date to the data object
+    await mutation.mutateAsync({ ...data, date });
+
+    // Invalidate the workouts query to refetch the data
+    queryClient.invalidateQueries({ queryKey: ['workouts'] });
+
+    // Reset the form
     reset();
+
+    // Navigate to the workouts page
+    navigate('/workouts');
   }
+
   return (
     <Layout>
       <main className='max-w-[800px] mx-auto h-[calc(100vh-80px)] flex flex-col gap-3 justify-center '>
@@ -68,7 +72,7 @@ export default function Home() {
             <label htmlFor='description'>Description</label>
             <Textarea
               id='description'
-              {...register('description', { required: true })}
+              {...register('description')}
             />
           </div>
           <div className='flex flex-col'>
@@ -76,7 +80,7 @@ export default function Home() {
             <Input
               type='number'
               id='reps'
-              {...register('reps', { required: true })}
+              {...register('reps')}
             />
           </div>
           <div className='flex flex-col'>
@@ -84,7 +88,7 @@ export default function Home() {
             <Input
               type='number'
               id='sets'
-              {...register('sets', { required: true })}
+              {...register('sets')}
             />
           </div>
           <div className='flex flex-col'>
@@ -92,7 +96,7 @@ export default function Home() {
             <Input
               type='number'
               id='weight'
-              {...register('weight', { required: true })}
+              {...register('weight')}
             />
           </div>
           <div className='flex flex-col'>
@@ -100,12 +104,12 @@ export default function Home() {
             <Input
               type='number'
               id='rest'
-              {...register('rest', { required: true })}
+              {...register('rest')}
             />
           </div>
           <div className='flex gap-2 items-center'>
             <label>Date:</label>
-            <ShadCnUIDatepicker
+            <DatePicker
               date={date}
               setDate={setDate}
             />
