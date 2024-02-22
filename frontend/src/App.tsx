@@ -3,12 +3,12 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
 //route imports
-import Home from './pages/home/Home';
-import Workout from './pages/workouts/Workout';
-import Signup from './pages/signup/Signup';
-import Signin from './pages/signin/Signin';
-import AddAWorkout from './pages/workouts/add-a-workout/AddAWorkout';
-import NotFoundPage from './pages/not-found/NotFoundPage';
+import Home from './app/home/page';
+import Workout from './app/workouts/page';
+import Signup from './app/signup/page';
+import Signin from './app/signin/page';
+import AddAWorkout from './app/workouts/add-a-workout/page';
+import NotFoundPage from './app/not-found/page';
 
 //create new clearly client
 const queryClient = new QueryClient();

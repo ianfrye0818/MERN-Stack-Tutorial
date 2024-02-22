@@ -6,7 +6,7 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { Button } from '../../../components/ui/button';
 import { Input } from '../../../components/ui/input';
 import { Textarea } from '../../../components/ui/textarea';
-import { ShadCnUIDatepicker } from '../../../components/ui/ShadCnUIDatePicker';
+import { ShadCnUIDatepicker } from '../../../components/ui/DatePicker';
 import Layout from '../../../components/Layout';
 import { Link } from 'react-router-dom';
 

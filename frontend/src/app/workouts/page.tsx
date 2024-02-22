@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Layout from '../../components/Layout';
 import WorkoutCard from '../../components/ui/WorkoutCard';
-import { WorkoutDB } from './add-a-workout/AddAWorkout';
+import { WorkoutDB } from './add-a-workout/page';
 import { Link } from 'react-router-dom';
 
 export default function Workout() {
