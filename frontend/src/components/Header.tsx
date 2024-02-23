@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useUser } from '../hooks/useUser';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 export default function Header() {
   const { isSignedIn, user, setUser } = useUser();
+  const queryClient = useQueryClient();
   const mutate = useMutation({
     mutationFn: async () => {
       if (user) {
@@ -16,8 +17,8 @@ export default function Header() {
 
   async function handleSignOut() {
     try {
-      const response = await mutate.mutateAsync();
-      console.log(response);
+      await mutate.mutateAsync();
+      queryClient.clear();
       setUser(null);
     } catch (error) {
       console.error(error);

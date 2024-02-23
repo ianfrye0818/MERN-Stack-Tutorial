@@ -25,7 +25,20 @@ export default function Workout() {
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
-  if (!data || data.length === 0) return <p>No workouts found</p>;
+  if (!data || data.length === 0)
+    return (
+      <Layout>
+        <main className='flex flex-col h-[calc(100vh-80px)] w-full justify-center items-center gap-4'>
+          <h1 className='text-4xl'>No workouts found</h1>
+          <Link
+            className='text-xl text-blue-600 underline'
+            to={'/workouts/add-a-workout'}
+          >
+            Click here to add a workout
+          </Link>
+        </main>
+      </Layout>
+    );
 
   return (
     <Layout>

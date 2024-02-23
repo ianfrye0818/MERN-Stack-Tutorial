@@ -8,11 +8,11 @@ export type UserInterface = {
   name?: string;
   email: string;
   password: string;
-  workouts?: string[];
   isAdmin: boolean;
   role: string;
   createdAt?: Date;
   updatedAt?: Date;
+  refreshTokens?: string[];
 };
 
 const userSchema = new mongoose.Schema(
@@ -20,7 +20,6 @@ const userSchema = new mongoose.Schema(
     name: { type: String, default: '' },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    workouts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Workout', default: [] }],
     isAdmin: { type: Boolean, required: true, default: false },
     role: {
       type: String,
@@ -28,6 +27,7 @@ const userSchema = new mongoose.Schema(
       default: 'user',
       enum: ['user', 'manager', 'employee', 'admin'],
     },
+    refreshTokens: [{ type: String, default: [] }],
   },
   { timestamps: true }
 );

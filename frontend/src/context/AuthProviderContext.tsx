@@ -35,6 +35,7 @@ export default function AuthProviderContext({ children }: PropsWithChildren) {
 
   useEffect(() => {
     if (user) {
+      console.log(user);
       localStorage.setItem('workoutUser', JSON.stringify(user));
     } else {
       localStorage.removeItem('workoutUser');
