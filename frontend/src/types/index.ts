@@ -6,6 +6,7 @@ export interface WorkoutInterface {
   weight?: number;
   rest?: number;
   date: Date;
+  user: string;
 }
 
 export interface WorkoutDB extends WorkoutInterface {

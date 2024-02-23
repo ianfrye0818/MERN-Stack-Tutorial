@@ -4,7 +4,7 @@ import { Request, Response, NextFunction } from 'express';
 //custom imports
 
 //type imports
-import { CustomRequest } from './verifyJWT';
+import { CustomRequest } from '../types/index';
 
 //middleware to check if user is an admin
 export default async function checkIsAdmin(req: Request, res: Response, next: NextFunction) {

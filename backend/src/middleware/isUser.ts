@@ -3,12 +3,13 @@ import { Request, Response, NextFunction } from 'express';
 //custom imports
 
 //type imports
-import { CustomRequest } from './verifyJWT';
+import { CustomRequest } from '../types/index';
 
 //middleware to verify that the user is the one who is accessing their own data
 export default async function isUser(req: Request, res: Response, next: NextFunction) {
   try {
     //check if user is the one accessing their own data
+
     if (req.params.id !== (req as CustomRequest).user.id) {
       return res
         .status(403)

@@ -1,9 +1,20 @@
+//library imports
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+import axios, { AxiosResponse } from 'axios';
+
+//component imports
 import Layout from '../../components/Layout';
 import { Input } from '../../components/ui/input';
 import { Button } from '../../components/ui/button';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+
+//hook imports
+import { useUser } from '../../hooks/useUser';
+
+//type imports
+import { User } from '../../context/AuthProviderContext';
 
 export type FormDataType = {
   email: string;
@@ -13,23 +24,41 @@ export type FormDataType = {
 
 export default function Signup() {
   const [errorMessage, setErrorMessage] = useState('');
-
+  const { setUser } = useUser();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
+  const mutation = useMutation({
+    mutationFn: async (data: FormDataType) => {
+      const { email, password } = data;
+      const userData = await axios.post('http://localhost:3000/api/auth/register', {
+        email,
+        password,
+      });
+      return userData;
+    },
+  });
 
   async function onSubmit(data: FormDataType) {
     try {
       setErrorMessage('');
       if (data.password !== data.confirmPassword) throw new Error('Passwords do not match');
-      console.log(data);
+      const userInfo: AxiosResponse<User> = await mutation.mutateAsync(data);
+      setUser(userInfo.data);
+      reset();
+      navigate('/workouts');
     } catch (error) {
-      if (error instanceof Error) setErrorMessage(error.message);
+      if (error instanceof Error) {
+        setErrorMessage(error.message);
+      } else {
+        setErrorMessage('An error occured');
+        console.error(error);
+      }
     }
-    reset();
   }
   return (
     <Layout>

@@ -2,8 +2,8 @@
 import { Request, Response } from 'express';
 //custom imports
 import Workout from '../models/workoutModel';
-import { WorkoutInterface } from '../models/workoutModel';
 //type imports
+import { CustomRequest } from '../types/index';
 
 // get all workouts
 async function getAllWorkouts(req: Request, res: Response) {
@@ -25,7 +25,7 @@ async function getAllWorkouts(req: Request, res: Response) {
 //get all of users workouts
 async function getAllUserWorkouts(req: Request, res: Response) {
   try {
-    const userId = req.params.id;
+    const userId = (req as CustomRequest).user.id;
     const workouts = await Workout.find({ user: userId });
     if (!workouts) {
       res.status(404).json({ message: 'No workouts found' });
@@ -61,7 +61,9 @@ async function getWorkout(req: Request, res: Response) {
 //create new workout
 async function createWorkout(req: Request, res: Response) {
   try {
-    const workout = await Workout.create(req.body);
+    const workout = new Workout(req.body);
+    await workout.save();
+    console.log(workout);
     res.status(201).json(workout);
   } catch (error) {
     if (error instanceof Error) {

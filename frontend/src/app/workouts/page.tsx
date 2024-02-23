@@ -2,14 +2,22 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Layout from '../../components/Layout';
 import WorkoutCard from '../../components/ui/WorkoutCard';
-import { WorkoutDB } from './add-a-workout/page';
+import { WorkoutDB } from '../../types/index';
 import { Link } from 'react-router-dom';
+import { useUser } from '../../hooks/useUser';
 
 export default function Workout() {
+  const { user, isSignedIn } = useUser();
   const { isLoading, error, data } = useQuery({
     queryKey: ['workouts'],
     queryFn: async () => {
-      const { data } = await axios.get('http://localhost:3000/api/workouts');
+      if (isSignedIn === false) return;
+      const url = `http://localhost:3000/api/workouts/user/${user?._id}`;
+      const { data } = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${user?.token}`,
+        },
+      });
       return data as WorkoutDB[];
     },
   });

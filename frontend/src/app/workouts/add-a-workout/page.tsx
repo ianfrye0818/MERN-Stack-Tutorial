@@ -15,6 +15,7 @@ import { Button } from '../../../components/ui/button';
 
 //type imports
 import { WorkoutInterface } from '../../../types';
+import { useUser } from '../../../hooks/useUser';
 
 export default function Home() {
   const [date, setDate] = useState<Date>(startOfDay(new Date()));
@@ -26,6 +27,7 @@ export default function Home() {
   } = useForm();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { user } = useUser();
 
   const mutation = useMutation({
     mutationFn: async (data: WorkoutInterface) =>
@@ -33,8 +35,9 @@ export default function Home() {
   });
 
   async function onSubmit(data: WorkoutInterface) {
-    // Add the date to the data object
-    await mutation.mutateAsync({ ...data, date });
+    // Add the date to the data object and userid
+    console.log(user?._id);
+    await mutation.mutateAsync({ ...data, date, user: user?._id as string });
 
     // Invalidate the workouts query to refetch the data
     queryClient.invalidateQueries({ queryKey: ['workouts'] });

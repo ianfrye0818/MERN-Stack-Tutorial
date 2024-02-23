@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 //custom imports
 import User from '../models/userModel';
 //type imports
-import { CustomRequest } from './verifyJWT';
+import { CustomRequest } from '../types/index';
 
 export default async function checkManagementRole(req: Request, res: Response, next: NextFunction) {
   try {

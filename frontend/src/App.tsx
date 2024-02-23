@@ -9,6 +9,8 @@ import Signup from './app/signup/page';
 import Signin from './app/signin/page';
 import AddAWorkout from './app/workouts/add-a-workout/page';
 import NotFoundPage from './app/not-found/page';
+import AuthProviderContext from './context/AuthProviderContext';
+import ProtectedRoutes from './routes/ProtectedRoutes';
 
 //create new clearly client
 const queryClient = new QueryClient();
@@ -22,7 +24,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/workouts',
-    element: <Workout />,
+    element: (
+      <ProtectedRoutes>
+        <Workout />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: '/workouts/add-a-workout',
@@ -40,8 +46,10 @@ const router = createBrowserRouter([
 
 export default function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
+    <AuthProviderContext>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </AuthProviderContext>
   );
 }

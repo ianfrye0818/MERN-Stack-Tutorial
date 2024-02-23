@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs';
 
 export type UserInterface = {
   _id?: string;
-  name: string;
+  name?: string;
   email: string;
   password: string;
   workouts?: string[];
@@ -17,7 +17,7 @@ export type UserInterface = {
 
 const userSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true, default: '' },
+    name: { type: String, default: '' },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     workouts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Workout', default: [] }],
