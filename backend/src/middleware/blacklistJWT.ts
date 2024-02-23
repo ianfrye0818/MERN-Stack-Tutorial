@@ -19,7 +19,7 @@ export async function checkExpiredToken(req: Request, res: Response, next: NextF
     res.status(401).send({ message: 'Token has been expired and blacklisted' });
     next();
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(401).json({ message: 'Invalid Token' });
   }
 }

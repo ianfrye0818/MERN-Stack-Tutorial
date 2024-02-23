@@ -31,12 +31,15 @@ export default function Home() {
 
   const mutation = useMutation({
     mutationFn: async (data: WorkoutInterface) =>
-      await axios.post('http://localhost:3000/api/workouts', data),
+      await axios.post('http://localhost:3000/api/workouts', data, {
+        headers: {
+          Authorization: `Bearer ${user?.token}`,
+        },
+      }),
   });
 
   async function onSubmit(data: WorkoutInterface) {
     // Add the date to the data object and userid
-    console.log(user?._id);
     await mutation.mutateAsync({ ...data, date, user: user?._id as string });
 
     // Invalidate the workouts query to refetch the data

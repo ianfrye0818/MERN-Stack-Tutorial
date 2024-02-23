@@ -11,6 +11,7 @@ import AddAWorkout from './app/workouts/add-a-workout/page';
 import NotFoundPage from './app/not-found/page';
 import AuthProviderContext from './context/AuthProviderContext';
 import ProtectedRoutes from './routes/ProtectedRoutes';
+import AllWorkouts from './app/get-all-workouts/page';
 
 //create new clearly client
 const queryClient = new QueryClient();
@@ -32,7 +33,19 @@ const router = createBrowserRouter([
   },
   {
     path: '/workouts/add-a-workout',
-    element: <AddAWorkout />,
+    element: (
+      <ProtectedRoutes>
+        <AddAWorkout />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: '/workouts/all-workouts',
+    element: (
+      <ProtectedRoutes>
+        <AllWorkouts />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: '/signin',

@@ -25,6 +25,7 @@ export type User = {
   createdAt?: Date;
   updatedAt?: Date;
   token: string;
+  refreshToken: string;
 };
 
 export default function AuthProviderContext({ children }: PropsWithChildren) {
@@ -35,7 +36,6 @@ export default function AuthProviderContext({ children }: PropsWithChildren) {
 
   useEffect(() => {
     if (user) {
-      console.log(user);
       localStorage.setItem('workoutUser', JSON.stringify(user));
     } else {
       localStorage.removeItem('workoutUser');

@@ -4,16 +4,22 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from './button';
 import axios from 'axios';
 import { WorkoutDB } from '../../types';
+import { useUser } from '../../hooks/useUser';
 
 type WorkoutCardProps = {
   workout: WorkoutDB;
 };
 
 export default function WorkoutCard({ workout }: WorkoutCardProps) {
+  const { user } = useUser();
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: async (id: string) =>
-      await axios.delete(`http://localhost:3000/api/workouts/${id}`),
+      await axios.delete(`http://localhost:3000/api/workouts/${id}`, {
+        headers: {
+          Authorization: `Bearer ${user?.token}`,
+        },
+      }),
   });
 
   async function handleDelete(id: string) {

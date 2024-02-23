@@ -12,6 +12,7 @@ import { CustomRequest } from '../types';
 //middleware to verify the token
 export async function verifyToken(req: Request, res: Response, next: NextFunction) {
   const token = req.headers.authorization?.split(' ')[1];
+
   if (!token) return res.status(401).json({ message: 'Unauthorized' });
 
   const blackListedToken = await TokenBlackList.findOne({ token });

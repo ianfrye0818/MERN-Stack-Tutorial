@@ -10,18 +10,22 @@ import {
   patchWorkout,
   getAllUserWorkouts,
 } from '../controllers/workoutController';
+
+//middleware imports
 import isUser from '../middleware/isUser';
 import { verifyToken } from '../middleware/verifyJWT';
+import { verifyAdmin } from '../middleware/verifyAdmin';
+import { verifyisAdminOrisUser } from '../middleware/verifyIsAdminOrIsUser';
 
 //global variables
 const router = express.Router();
 
 //routes
-router.get('/', getAllWorkouts);
+router.get('/', verifyToken, verifyAdmin, getAllWorkouts);
 router.get('/user/:id', verifyToken, isUser, getAllUserWorkouts);
-router.get('/:id', getWorkout);
-router.post('/', createWorkout);
-router.patch('/:id', patchWorkout);
-router.delete('/:id', deleteWorkout);
+router.get('/:id', verifyToken, verifyAdmin, getWorkout);
+router.patch('/:id', verifyToken, verifyisAdminOrisUser, patchWorkout);
+router.post('/', verifyToken, createWorkout);
+router.delete('/:id', verifyToken, verifyisAdminOrisUser, deleteWorkout);
 
 export default router;

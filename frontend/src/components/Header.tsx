@@ -43,6 +43,11 @@ export default function Header() {
               <Link to='/signin'>Sign In</Link>
             )}
           </li>
+          {user?.isAdmin && (
+            <li>
+              <Link to='/workouts/all-workouts'>Get All Workouts</Link>
+            </li>
+          )}
         </ul>
       </nav>
     </header>

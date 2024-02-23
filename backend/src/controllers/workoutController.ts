@@ -63,7 +63,6 @@ async function createWorkout(req: Request, res: Response) {
   try {
     const workout = new Workout(req.body);
     await workout.save();
-    console.log(workout);
     res.status(201).json(workout);
   } catch (error) {
     if (error instanceof Error) {
