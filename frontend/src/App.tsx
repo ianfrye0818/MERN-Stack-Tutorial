@@ -12,6 +12,7 @@ import NotFoundPage from './app/not-found/page';
 import AuthProviderContext from './context/AuthProviderContext';
 import ProtectedRoutes from './routes/ProtectedRoutes';
 import AllWorkouts from './app/get-all-workouts/page';
+import AuthRoutes from './routes/authRoutes';
 
 //create new clearly client
 const queryClient = new QueryClient();
@@ -20,40 +21,22 @@ const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home />,
+    element: <AuthRoutes />,
     errorElement: <NotFoundPage />,
+    children: [
+      { path: '', element: <Home /> },
+      { path: 'signup', element: <Signup /> },
+      { path: 'signin', element: <Signin /> },
+    ],
   },
   {
     path: '/workouts',
-    element: (
-      <ProtectedRoutes>
-        <Workout />
-      </ProtectedRoutes>
-    ),
-  },
-  {
-    path: '/workouts/add-a-workout',
-    element: (
-      <ProtectedRoutes>
-        <AddAWorkout />
-      </ProtectedRoutes>
-    ),
-  },
-  {
-    path: '/workouts/all-workouts',
-    element: (
-      <ProtectedRoutes>
-        <AllWorkouts />
-      </ProtectedRoutes>
-    ),
-  },
-  {
-    path: '/signin',
-    element: <Signin />,
-  },
-  {
-    path: '/signup',
-    element: <Signup />,
+    element: <ProtectedRoutes />,
+    children: [
+      { path: '', element: <Workout /> },
+      { path: 'add-a-workout', element: <AddAWorkout /> },
+      { path: 'all-workouts', element: <AllWorkouts /> },
+    ],
   },
 ]);
 

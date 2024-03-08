@@ -15,6 +15,7 @@ export default async function isUser(req: Request, res: Response, next: NextFunc
         .status(403)
         .json({ message: 'Unauthorized. User is not authorized to access this resource' });
     }
+    ('user verified');
     next();
   } catch (error) {
     //send a 500 status code if an error occurs

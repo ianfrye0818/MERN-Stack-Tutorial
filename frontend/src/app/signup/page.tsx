@@ -35,7 +35,7 @@ export default function Signup() {
   const mutation = useMutation({
     mutationFn: async (data: FormDataType) => {
       const { email, password } = data;
-      const userData = await axios.post('http://localhost:3000/api/auth/register', {
+      const userData = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/auth/register`, {
         email,
         password,
       });

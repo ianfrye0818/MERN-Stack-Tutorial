@@ -31,7 +31,7 @@ export default function Home() {
 
   const mutation = useMutation({
     mutationFn: async (data: WorkoutInterface) =>
-      await axios.post('http://localhost:3000/api/workouts', data, {
+      await axios.post(`${import.meta.env.VITE_BASE_URL}/api/workouts`, data, {
         headers: {
           Authorization: `Bearer ${user?.token}`,
         },

@@ -14,7 +14,7 @@ import authRoutes from './routes/authRoutes';
 //global variables
 const app = express();
 const PORT = process.env.PORT || 5000;
-const MONGO_URI = process.env.MONGO_URI as string;
+const MONGODB_URI = process.env.MONGODB_URI as string;
 
 //middleware
 app.use(express.json());
@@ -28,7 +28,7 @@ app.use('/api/auth', authRoutes);
 
 //connect to db and start listening for requests
 mongoose
-  .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true } as ConnectOptions)
+  .connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true } as ConnectOptions)
   .then(() => {
     console.log('Connected to the database');
     app.listen(PORT, () => {

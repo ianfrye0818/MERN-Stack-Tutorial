@@ -15,7 +15,7 @@ export default function WorkoutCard({ workout }: WorkoutCardProps) {
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: async (id: string) =>
-      await axios.delete(`http://localhost:3000/api/workouts/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_BASE_URL}/api/workouts/${id}`, {
         headers: {
           Authorization: `Bearer ${user?.token}`,
         },

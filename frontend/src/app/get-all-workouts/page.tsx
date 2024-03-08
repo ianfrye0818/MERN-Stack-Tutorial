@@ -12,7 +12,7 @@ export default function AllWorkouts() {
     queryKey: ['workouts'],
     queryFn: async () => {
       if (isSignedIn === false) return;
-      const url = `http://localhost:3000/api/workouts/`;
+      const url = `${import.meta.env.VITE_BASE_URL}/api/workouts/`;
       const { data } = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${user?.token}`,

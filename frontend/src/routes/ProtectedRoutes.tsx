@@ -1,22 +1,22 @@
-import { PropsWithChildren, useEffect } from 'react';
 import { useUser } from '../hooks/useUser';
-import { useNavigate } from 'react-router-dom';
-import useRefresh from '../hooks/useRefresh';
+import { Outlet, Navigate, useLocation } from 'react-router-dom';
 
-export default function ProtectedRoutes({ children }: PropsWithChildren) {
+export default function ProtectedRoutes() {
   const { user } = useUser();
-  const navigate = useNavigate();
+  const location = useLocation();
 
-  const refresh = useRefresh();
-
-  useEffect(() => {
-    refresh();
-  }, [refresh]);
-
-  useEffect(() => {
-    if (!user) {
-      navigate('/signin');
-    }
-  }, [user, navigate]);
-  return <div>{children}</div>;
+  if (!user) {
+    return (
+      <Navigate
+        to='/signin'
+        state={{ message: 'You must log in first', from: location.pathname }}
+        replace
+      />
+    );
+  }
+  return (
+    <div>
+      <Outlet />
+    </div>
+  );
 }

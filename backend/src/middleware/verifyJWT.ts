@@ -23,7 +23,7 @@ export async function verifyToken(req: Request, res: Response, next: NextFunctio
   try {
     const decoded = decodeToken(token, process.env.JWT_SECRET!);
     (req as CustomRequest).user = decoded as CustomRequest['user'];
-
+    ('token verified');
     next();
   } catch (error) {
     return res.status(401).json({ message: 'Invalid token' });

@@ -4,7 +4,7 @@ export async function generateTokens(user: UserInterface) {
   const token = signToken(
     { id: user._id, isAdmin: user.isAdmin, role: user.role },
     process.env.JWT_SECRET!,
-    '1d'
+    '5d'
   );
   const refreshToken = signToken(
     { id: user._id, isAdmin: user.isAdmin, role: user.role },

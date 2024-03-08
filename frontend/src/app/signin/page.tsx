@@ -35,7 +35,7 @@ export default function Signin() {
 
   const mutation = useMutation({
     mutationFn: async (data: FormDataType) =>
-      await axios.post('http://localhost:3000/api/auth/login', data),
+      await axios.post(`${import.meta.env.VITE_BASE_URL}/api/auth/login`, data),
   });
 
   async function onSubmit(data: FormDataType) {

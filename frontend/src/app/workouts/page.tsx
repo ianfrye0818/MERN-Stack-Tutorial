@@ -12,7 +12,7 @@ export default function Workout() {
     queryKey: ['workouts'],
     queryFn: async () => {
       if (isSignedIn === false) return;
-      const url = `http://localhost:3000/api/workouts/user/${user?._id}`;
+      const url = `${import.meta.env.VITE_BASE_URL}/api/workouts/user/${user?._id}`;
       const { data } = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${user?.token}`,
@@ -20,19 +20,19 @@ export default function Workout() {
       });
       return data as WorkoutDB[];
     },
+    retry: false,
   });
 
   if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
 
-  if (!data || data.length === 0)
+  if (error || !data || data.length === 0)
     return (
       <Layout>
         <main className='flex flex-col h-[calc(100vh-80px)] w-full justify-center items-center gap-4'>
           <h1 className='text-4xl'>No workouts found</h1>
           <Link
             className='text-xl text-blue-600 underline'
-            to={'/workouts/add-a-workout'}
+            to={'add-a-workout'}
           >
             Click here to add a workout
           </Link>
@@ -46,7 +46,7 @@ export default function Workout() {
         <div className=' container flex justify-between items-center'>
           <h1 className='text-center text-3xl text-gray-500 '>Workouts</h1>
           <Link
-            to={'/workouts/add-a-workout'}
+            to={'add-a-workout'}
             className='text-center text-blue-500 underline'
           >
             Add a workout

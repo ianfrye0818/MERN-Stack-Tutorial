@@ -8,7 +8,7 @@ export default function Header() {
   const mutate = useMutation({
     mutationFn: async () => {
       if (user) {
-        await axios.get('http://localhost:3000/api/auth/logout', {
+        await axios.get(`${import.meta.env.VITE_BASE_URL}/api/auth/logout`, {
           headers: { Authorization: `Bearer ${user.token}` },
         });
       }
