@@ -21,7 +21,7 @@ Welcome to Workout Tracker, your personal fitness assistant! Workout Tracker is 
 
 To get started with Workout Tracker, simply follow these steps:
 
-1. Clone the Repository: `git clone https://github.com/yourusername/workout-tracker.git`
+1. Clone the Repository: `git clone https://github.com/ianfrye0818/Workout-Tracker.git`
 2. For the backend cd into the 'backend' directory
 3. Install Dependencies: `npm install`
 4. Set Up Environment Variables: Create a `.env`  file based on the provided `.env.example` file and fill in the necessary environment variables.
