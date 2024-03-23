@@ -55,7 +55,7 @@ export default function Signin() {
     }
     reset();
   }
-
+  console.log('base url :', import.meta.env.VITE_BASE_URL);
   return (
     <Layout>
       <main className=' max-w-[500px] p-2 min-h-[calc(100vh-80px)] mx-auto flex flex-col gap-4 justify-center items-center'>
